@@ -21,7 +21,10 @@ export const useAuth = ({
   } = useSWR('/api/user', () =>
     axios
       .get('/api/user')
-      .then((res) => res.data)
+      .then((res) => {
+        console.log(res)
+        return res.data
+      })
       .catch((error) => {
         if (error.response.status !== 409) throw error
 
@@ -86,7 +89,7 @@ export const useAuth = ({
 
   const logout = async () => {
     if (!error) {
-      await axios.post('/logout').then(() => mutate())
+      await axios.post('/logout').then(() => mutate(undefined))
     }
 
     window.location.pathname = '/login'

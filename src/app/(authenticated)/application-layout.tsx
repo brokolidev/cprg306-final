@@ -23,6 +23,7 @@ import {
 } from '@/components/sidebar'
 import { SidebarLayout } from '@/components/sidebar-layout'
 import { getEvents } from '@/data'
+import { useAuth } from '@/hooks/auth'
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -43,9 +44,8 @@ import {
   UsersIcon,
 } from '@heroicons/react/20/solid'
 import { usePathname } from 'next/navigation'
-import { useAuth } from '@/hooks/auth'
 
-function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
+function AccountDropdownMenu({ anchor, onLogout }: { anchor: 'top start' | 'bottom end'; onLogout: () => void }) {
   return (
     <DropdownMenu className="min-w-64" anchor={anchor}>
       <DropdownItem href="#">
@@ -62,7 +62,7 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <DropdownLabel>Share feedback</DropdownLabel>
       </DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="#">
+      <DropdownItem href="#" onClick={onLogout}>
         <ArrowRightStartOnRectangleIcon />
         <DropdownLabel>Sign out</DropdownLabel>
       </DropdownItem>
@@ -79,7 +79,7 @@ export function ApplicationLayout({
 }) {
   let pathname = usePathname()
 
-  const { user } = useAuth({ middleware: 'auth' })
+  const { user, logout } = useAuth({ middleware: 'auth' })
 
   return (
     <SidebarLayout
@@ -91,7 +91,7 @@ export function ApplicationLayout({
               <DropdownButton as={NavbarItem}>
                 <Avatar src="/users/erica.jpg" square />
               </DropdownButton>
-              <AccountDropdownMenu anchor="bottom end" />
+              <AccountDropdownMenu anchor="bottom end" onLogout={logout} />
             </Dropdown>
           </NavbarSection>
         </Navbar>
@@ -181,15 +181,17 @@ export function ApplicationLayout({
                 <span className="flex min-w-0 items-center gap-3">
                   <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
                   <span className="min-w-0">
-                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
+                    <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
+                      {user?.first_name && user.first_name}
+                    </span>
                     <span className="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">
-                      erica@example.com
+                      {user?.email && user.email}
                     </span>
                   </span>
                 </span>
                 <ChevronUpIcon />
               </DropdownButton>
-              <AccountDropdownMenu anchor="top start" />
+              <AccountDropdownMenu anchor="top start" onLogout={logout} />
             </Dropdown>
           </SidebarFooter>
         </Sidebar>
