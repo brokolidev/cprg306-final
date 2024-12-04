@@ -1,4 +1,4 @@
-import { ApplicationLayout } from '@/app/(main)/application-layout'
+import { ApplicationLayout } from '@/app/(authenticated)/application-layout'
 import { getEvents } from '@/data'
 
 export async function Layout({ children }: { children: React.ReactNode }) {
