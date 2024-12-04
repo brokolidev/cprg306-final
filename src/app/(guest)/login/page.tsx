@@ -1,22 +1,14 @@
 'use client'
 
-import { Button } from '@/components/button'
-import { Fieldset, Label } from '@/components/fieldset'
-import { Heading } from '@/components/heading'
-import { Input, InputGroup } from '@/components/input'
-import { Link } from '@/components/link'
-import { Switch } from '@/components/switch'
-import { Text } from '@/components/text'
-import { useAuth } from '@/hooks/auth'
-import axios from '@/lib/axios'
+import {Button} from '@/components/button'
+import {Fieldset, Label} from '@/components/fieldset'
+import {Heading} from '@/components/heading'
+import {Input, InputGroup} from '@/components/input'
+import {Link} from '@/components/link'
+import {Switch} from '@/components/switch'
+import {Text} from '@/components/text'
 import Image from 'next/image'
-import * as Yup from 'yup'
-
-interface Values {
-  email: string
-  password: string
-  remember: boolean
-}
+import {useAuth} from '@/hooks/auth'
 
 export default function LoginPage() {
   const { login } = useAuth({
@@ -24,32 +16,12 @@ export default function LoginPage() {
     redirectIfAuthenticated: '/',
   })
 
-  const csrf = () => axios.get('/sanctum/csrf-cookie')
-
   const submitForm = async (form: FormData) => {
-    const email = form.get('email')
-    const password = form.get('password')
+    const email = form.get('email').toString()
+    const password = form.get('password').toString()
 
-    try {
-      await csrf()
-      await axios
-        .post('/api/login', {
-          email: email,
-          password: password,
-        })
-        .then((res) => {
-          console.log(res)
-        })
-    } catch (error) {
-      // @TODO: handle error messages
-      console.log(error)
-    }
+    await login({ email: email, password: password })
   }
-
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('The email field is required.'),
-    password: Yup.string().required('The password field is required.'),
-  })
 
   return (
     <>

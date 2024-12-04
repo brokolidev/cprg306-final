@@ -1,10 +1,10 @@
-import { Avatar } from '@/components/avatar'
+'use client'
+
 import { Badge } from '@/components/badge'
 import { Divider } from '@/components/divider'
 import { Heading, Subheading } from '@/components/heading'
 import { Select } from '@/components/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
-import { getRecentOrders } from '@/data'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/table'
 
 export function Stat({ title, value, change }: { title: string; value: string; change: string }) {
   return (
@@ -20,8 +20,8 @@ export function Stat({ title, value, change }: { title: string; value: string; c
   )
 }
 
-export default async function Home() {
-  let orders = await getRecentOrders()
+export default function Home() {
+  // let orders = await getRecentOrders()
 
   return (
     <>
@@ -54,20 +54,20 @@ export default async function Home() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>
-              <TableCell>{order.id}</TableCell>
-              <TableCell className="text-zinc-500">{order.date}</TableCell>
-              <TableCell>{order.customer.name}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar src={order.event.thumbUrl} className="size-6" />
-                  <span>{order.event.name}</span>
-                </div>
-              </TableCell>
-              <TableCell>US{order.amount.usd}</TableCell>
-            </TableRow>
-          ))}
+          {/*{orders.map((order) => (*/}
+          {/*  <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>*/}
+          {/*    <TableCell>{order.id}</TableCell>*/}
+          {/*    <TableCell className="text-zinc-500">{order.date}</TableCell>*/}
+          {/*    <TableCell>{order.customer.name}</TableCell>*/}
+          {/*    <TableCell>*/}
+          {/*      <div className="flex items-center gap-2">*/}
+          {/*        <Avatar src={order.event.thumbUrl} className="size-6" />*/}
+          {/*        <span>{order.event.name}</span>*/}
+          {/*      </div>*/}
+          {/*    </TableCell>*/}
+          {/*    <TableCell>US{order.amount.usd}</TableCell>*/}
+          {/*  </TableRow>*/}
+          {/*))}*/}
         </TableBody>
       </Table>
     </>

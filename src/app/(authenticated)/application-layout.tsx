@@ -43,6 +43,7 @@ import {
   UsersIcon,
 } from '@heroicons/react/20/solid'
 import { usePathname } from 'next/navigation'
+import { useAuth } from '@/hooks/auth'
 
 function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' }) {
   return (
@@ -77,6 +78,8 @@ export function ApplicationLayout({
   children: React.ReactNode
 }) {
   let pathname = usePathname()
+
+  const { user } = useAuth({ middleware: 'auth' })
 
   return (
     <SidebarLayout
