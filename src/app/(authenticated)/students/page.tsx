@@ -57,7 +57,7 @@ export default function StudentsPage() {
         <TableBody>
           {students &&
             students.map((student) => (
-              <TableRow key={student.id} href={student.url} title={`Order #${student.id}`}>
+              <TableRow key={student.id} href={`/students/${student.id}`} title={`Student #${student.id}`}>
                 <TableCell>{student.id}</TableCell>
                 <TableCell className="text-zinc-500">Availability here</TableCell>
                 <TableCell>{student.fullName}</TableCell>

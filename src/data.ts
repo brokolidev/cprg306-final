@@ -4,6 +4,18 @@ import axios from '@/lib/axios'
 //   return (await getOrders()).find((order) => order.id.toString() === id)!
 // }
 
+export interface IStudent {
+  id: string
+  fullName: string
+  email: string
+  dob: string
+  beltColor: string
+}
+
+export async function getStudent(id: string): Promise<IStudent> {
+  return axios.get(`/api/students/${id}`).then((res) => res.data.data)
+}
+
 const csrf = () => axios.get('/sanctum/csrf-cookie')
 
 export async function getSchedules() {

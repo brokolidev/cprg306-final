@@ -39,7 +39,7 @@ export default function StudentRegisterPage() {
           Students
         </Link>
       </div>
-      <form method="post" action={formAction} className="mt-4 lg:mt-8">
+      <form action={formAction} className="mt-4 lg:mt-8">
         <Heading>Student Registration</Heading>
         <Divider className="my-10 mt-6" />
 
