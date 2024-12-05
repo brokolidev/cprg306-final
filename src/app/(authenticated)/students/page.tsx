@@ -23,11 +23,7 @@ export default function StudentsPage() {
       setStudents(data.data)
       setLinks(data.meta.links)
     }
-    fetchData(page).then(() => {
-      links.map((link, idx) => {
-        console.log(link.url, idx)
-      })
-    })
+    fetchData(page)
   }, [page])
 
   const conditionalStyle = (expiredAt) => {

@@ -3,6 +3,7 @@ import { Divider } from '@/components/divider'
 import { Heading, Subheading } from '@/components/heading'
 import { Input } from '@/components/input'
 import { Link } from '@/components/link'
+import { Select } from '@/components/select'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
@@ -14,7 +15,7 @@ export default function StudentRegisterPage() {
   return (
     <>
       <div className="max-lg:hidden">
-        <Link href="/Students" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
+        <Link href="/students" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
           <ChevronLeftIcon className="size-4 fill-zinc-400 dark:fill-zinc-500" />
           Students
         </Link>
@@ -47,6 +48,21 @@ export default function StudentRegisterPage() {
           </div>
           <div>
             <Input aria-label="Date of Birth" name="dob" placeholder="02/07/86" />
+          </div>
+          <div className="space-y-1">
+            <Subheading>Belt Color</Subheading>
+          </div>
+          <div>
+            <Select aria-label="Belt Color" name="belt_color" defaultValue="white">
+              <option value="white">White</option>
+              <option value="yellow">Yellow</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="brown">Brown</option>
+              <option value="red">Red</option>
+              <option value="mixed">Mixed</option>
+              <option value="black">Black</option>
+            </Select>
           </div>
         </section>
 
