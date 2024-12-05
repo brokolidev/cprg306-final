@@ -1,18 +1,35 @@
+'use client'
+
 import { Avatar } from '@/components/avatar'
+import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
 import { Link } from '@/components/link'
+import { Pagination, PaginationGap, PaginationNext, PaginationPage, PaginationPrevious } from '@/components/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getStudents } from '@/data'
-import type { Metadata } from 'next'
-import { Button } from '@/components/button'
-
-export const metadata: Metadata = {
-  title: 'Students',
-}
-
-let students = await getStudents()
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function StudentsPage() {
+  const searchParams = useSearchParams()
+  const page = searchParams.get('page') ?? '1'
+
+  const [students, setStudents] = useState([])
+  const [links, setLinks] = useState([])
+
+  useEffect(() => {
+    const fetchData = async (page: string) => {
+      const data = await getStudents(page)
+      setStudents(data.data)
+      setLinks(data.meta.links)
+    }
+    fetchData(page).then(() => {
+      links.map((link, idx) => {
+        console.log(link.url, idx)
+      })
+    })
+  }, [page])
+
   const conditionalStyle = (expiredAt) => {
     const currentDate = new Date().valueOf()
     const expirationDate = new Date(expiredAt).valueOf()
@@ -42,24 +59,43 @@ export default function StudentsPage() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {students.map((student) => (
-            <TableRow key={student.id} href={student.url} title={`Order #${student.id}`}>
-              <TableCell>{student.id}</TableCell>
-              <TableCell className="text-zinc-500">Availability here</TableCell>
-              <TableCell>{student.fullName}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Avatar src={student.profileImgUrl} className="size-6" />
-                  <span>{student.beltColor} Belt</span>
-                </div>
-              </TableCell>
-              <TableCell className="text-right" style={conditionalStyle(student.expiredAt)}>
-                {student.expiredAt}
-              </TableCell>
-            </TableRow>
-          ))}
+          {students &&
+            students.map((student) => (
+              <TableRow key={student.id} href={student.url} title={`Order #${student.id}`}>
+                <TableCell>{student.id}</TableCell>
+                <TableCell className="text-zinc-500">Availability here</TableCell>
+                <TableCell>{student.fullName}</TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    <Avatar src={student.profileImgUrl} className="size-6" />
+                    <span>{student.beltColor} Belt</span>
+                  </div>
+                </TableCell>
+                <TableCell className="text-right" style={conditionalStyle(student.expiredAt)}>
+                  {student.expiredAt}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
+
+      <Pagination className="mt-10">
+        {links &&
+          links.length > 0 &&
+          links.map((link, idx) =>
+            idx === 0 ? (
+              <PaginationPrevious key={idx} href={link.url} />
+            ) : link.url === null && idx < links.length - 1 ? (
+              <PaginationGap key={idx} />
+            ) : idx === links.length - 1 ? (
+              <PaginationNext key={idx} href={link.url} />
+            ) : (
+              <PaginationPage key={idx} href={link.url} {...(link.active ? { current: true } : {})}>
+                {link.label}
+              </PaginationPage>
+            )
+          )}
+      </Pagination>
     </>
   )
 }

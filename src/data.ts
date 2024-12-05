@@ -8,8 +8,8 @@ export async function getSchedules() {
   return axios.get('/api/schedule').then((res) => res.data.data)
 }
 
-export async function getStudents() {
-  return axios.get('/api/students').then((res) => res.data.data)
+export async function getStudents(page: string) {
+  return axios.get(`/api/students?page=${page}`).then((res) => res.data)
 }
 
 export async function getEvent(id: string) {
