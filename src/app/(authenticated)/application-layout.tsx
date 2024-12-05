@@ -128,15 +128,19 @@ export function ApplicationLayout({
                 <UsersIcon />
                 <SidebarLabel>Students</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/#" current={pathname.startsWith('/schedules')}>
+              <SidebarItem href="#" current={pathname.startsWith('/instructors')}>
+                <UserCircleIcon />
+                <SidebarLabel>Instructors</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="#" current={pathname.startsWith('/schedules')}>
                 <CalendarDaysIcon />
                 <SidebarLabel>Schedules</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/#" current={pathname.startsWith('/events')}>
+              <SidebarItem href="/events" current={pathname.startsWith('/events')}>
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/#" current={pathname.startsWith('/settings')}>
+              <SidebarItem href="/settings" current={pathname.startsWith('/settings')}>
                 <Cog6ToothIcon />
                 <SidebarLabel>Settings</SidebarLabel>
               </SidebarItem>

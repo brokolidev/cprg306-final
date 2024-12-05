@@ -1,9 +1,10 @@
 import { Avatar } from '@/components/avatar'
-import { Button } from '@/components/button'
 import { Heading } from '@/components/heading'
+import { Link } from '@/components/link'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getStudents } from '@/data'
 import type { Metadata } from 'next'
+import { Button } from '@/components/button'
 
 export const metadata: Metadata = {
   title: 'Students',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 let students = await getStudents()
 
-export default function Orders() {
+export default function StudentsPage() {
   const conditionalStyle = (expiredAt) => {
     const currentDate = new Date().valueOf()
     const expirationDate = new Date(expiredAt).valueOf()
@@ -26,7 +27,9 @@ export default function Orders() {
     <>
       <div className="flex items-end justify-between gap-4">
         <Heading>Students</Heading>
-        <Button className="-my-0.5">Register</Button>
+        <Link href="/students/register">
+          <Button className="-my-0.5 cursor-pointer">Register</Button>
+        </Link>
       </div>
       <Table className="mt-8 [--gutter:theme(spacing.6)] lg:[--gutter:theme(spacing.10)]">
         <TableHead>
