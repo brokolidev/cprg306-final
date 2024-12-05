@@ -1,26 +1,45 @@
+'use client'
+
+import { Alert, AlertActions, AlertDescription, AlertTitle } from '@/components/alert'
 import { Button } from '@/components/button'
 import { Divider } from '@/components/divider'
 import { Heading, Subheading } from '@/components/heading'
 import { Input } from '@/components/input'
 import { Link } from '@/components/link'
 import { Select } from '@/components/select'
+import { createStudent } from '@/data'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Settings',
-}
+import { useState } from 'react'
 
 export default function StudentRegisterPage() {
+  const formAction = async (formData) => {
+    await createStudent(formData).then((res) => {
+      if (res.status === 204) {
+        setIsCreated(true)
+      }
+    })
+  }
+
+  let [isCreated, setIsCreated] = useState(false)
+
   return (
     <>
+      <Alert open={isCreated} onClose={setIsCreated}>
+        <AlertTitle>Congratulations!</AlertTitle>
+        <AlertDescription>A new student has been joined successfully</AlertDescription>
+        <AlertActions>
+          <Link href="/students">
+            <Button onClick={() => setIsCreated(false)}>Sounds Good!</Button>
+          </Link>
+        </AlertActions>
+      </Alert>
       <div className="max-lg:hidden">
         <Link href="/students" className="inline-flex items-center gap-2 text-sm/6 text-zinc-500 dark:text-zinc-400">
           <ChevronLeftIcon className="size-4 fill-zinc-400 dark:fill-zinc-500" />
           Students
         </Link>
       </div>
-      <form method="post" className="mt-4 lg:mt-8">
+      <form method="post" action={formAction} className="mt-4 lg:mt-8">
         <Heading>Student Registration</Heading>
         <Divider className="my-10 mt-6" />
 
@@ -89,7 +108,9 @@ export default function StudentRegisterPage() {
           <Button type="reset" plain>
             Reset
           </Button>
-          <Button type="submit">Register</Button>
+          <Button type="submit" className="cursor-pointer">
+            Register
+          </Button>
         </div>
       </form>
     </>

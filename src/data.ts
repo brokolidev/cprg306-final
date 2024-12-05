@@ -4,12 +4,28 @@ import axios from '@/lib/axios'
 //   return (await getOrders()).find((order) => order.id.toString() === id)!
 // }
 
+const csrf = () => axios.get('/sanctum/csrf-cookie')
+
 export async function getSchedules() {
   return axios.get('/api/schedule').then((res) => res.data.data)
 }
 
 export async function getStudents(page: string) {
   return axios.get(`/api/students?page=${page}`).then((res) => res.data)
+}
+
+export async function createStudent(data: FormData) {
+  await csrf()
+
+  return await axios.post('/api/students', {
+    first_name: data.get('first_name'),
+    last_name: data.get('last_name'),
+    email: data.get('email'),
+    password: data.get('password'),
+    password_confirmation: data.get('password_confirmation'),
+    dob: data.get('dob'),
+    belt_color: data.get('belt_color'),
+  })
 }
 
 export async function getEvent(id: string) {
