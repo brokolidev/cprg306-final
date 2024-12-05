@@ -13,11 +13,10 @@ let students = await getStudents()
 
 export default function Orders() {
   const conditionalStyle = (expiredAt) => {
-    const currentDate = new Date()
-    const expirationDate = new Date(expiredAt)
+    const currentDate = new Date().valueOf()
+    const expirationDate = new Date(expiredAt).valueOf()
     const daysUntilExpiration: number = (expirationDate - currentDate) / (1000 * 60 * 60 * 24)
 
-    // 조건에 따라 스타일을 적용합니다
     return {
       color: daysUntilExpiration <= 5 && daysUntilExpiration >= 0 ? 'red' : '',
     }
