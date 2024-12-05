@@ -1,10 +1,14 @@
 'use client'
 
+import { Avatar } from '@/components/avatar'
 import { Badge } from '@/components/badge'
 import { Divider } from '@/components/divider'
 import { Heading, Subheading } from '@/components/heading'
 import { Select } from '@/components/select'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
+import { getSchedules } from '@/data'
+import { useAuth } from '@/hooks/auth'
+import { useEffect, useState } from 'react'
 
 export function Stat({ title, value, change }: { title: string; value: string; change: string }) {
   return (
@@ -20,12 +24,36 @@ export function Stat({ title, value, change }: { title: string; value: string; c
   )
 }
 
+const schedules = await getSchedules()
+
 export default function Home() {
-  // let orders = await getRecentOrders()
+  const { user } = useAuth({ middleware: 'auth' })
+
+  const [firstName, setFirstName] = useState('')
+
+  const getGreeting = () => {
+    const currentHour = new Date().getHours()
+
+    if (currentHour >= 6 && currentHour < 12) {
+      return 'morning'
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'afternoon'
+    } else {
+      return 'evening'
+    }
+  }
+
+  useEffect(() => {
+    if (user && user.first_name) {
+      setFirstName(user.first_name)
+    }
+  })
 
   return (
     <>
-      <Heading>Good afternoon, Erica</Heading>
+      <Heading>
+        Good {getGreeting()}, {firstName}
+      </Heading>
       <div className="mt-8 flex items-end justify-between">
         <Subheading>Overview</Subheading>
         <div>
@@ -42,7 +70,7 @@ export default function Home() {
         <Stat title="Total Customers" value="488" change="-0.5%" />
         <Stat title="Employees" value="8" change="+30%" />
       </div>
-      <Subheading className="mt-14">Upcomming Schedule</Subheading>
+      <Subheading className="mt-14">Registered Schedules</Subheading>
       <Table className="mt-4 [--gutter:theme(spacing.6)] lg:[--gutter:theme(spacing.10)]">
         <TableHead>
           <TableRow>
@@ -50,24 +78,26 @@ export default function Home() {
             <TableHeader>Date</TableHeader>
             <TableHeader>Main Instructor</TableHeader>
             <TableHeader>Level</TableHeader>
-            <TableHeader>Class Size</TableHeader>
+            <TableHeader className="text-center">Class Size</TableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
-          {/*{orders.map((order) => (*/}
-          {/*  <TableRow key={order.id} href={order.url} title={`Order #${order.id}`}>*/}
-          {/*    <TableCell>{order.id}</TableCell>*/}
-          {/*    <TableCell className="text-zinc-500">{order.date}</TableCell>*/}
-          {/*    <TableCell>{order.customer.name}</TableCell>*/}
-          {/*    <TableCell>*/}
-          {/*      <div className="flex items-center gap-2">*/}
-          {/*        <Avatar src={order.event.thumbUrl} className="size-6" />*/}
-          {/*        <span>{order.event.name}</span>*/}
-          {/*      </div>*/}
-          {/*    </TableCell>*/}
-          {/*    <TableCell>US{order.amount.usd}</TableCell>*/}
-          {/*  </TableRow>*/}
-          {/*))}*/}
+          {schedules.map((schedule) => (
+            <TableRow key={schedule.id} title={`Schedule #${schedule.id}`}>
+              <TableCell className="text-zinc-500">
+                {schedule.timeslot.starts_at} - {schedule.timeslot.ends_at}
+              </TableCell>
+              <TableCell>{schedule.dow}</TableCell>
+              <TableCell>{schedule.mainInstructor}</TableCell>
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <Avatar src={schedule.levelImgUrl} className="size-6" />
+                  <span>{schedule.level}</span>
+                </div>
+              </TableCell>
+              <TableCell className="text-center">{schedule.classSize}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </>

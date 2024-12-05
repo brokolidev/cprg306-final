@@ -24,13 +24,7 @@ import {
 import { SidebarLayout } from '@/components/sidebar-layout'
 import { getEvents } from '@/data'
 import { useAuth } from '@/hooks/auth'
-import {
-  ArrowRightStartOnRectangleIcon,
-  ChevronUpIcon,
-  LightBulbIcon,
-  ShieldCheckIcon,
-  UserCircleIcon,
-} from '@heroicons/react/16/solid'
+import { ArrowRightStartOnRectangleIcon, ChevronUpIcon, UserCircleIcon } from '@heroicons/react/16/solid'
 import {
   CalendarDaysIcon,
   Cog6ToothIcon,
@@ -49,15 +43,15 @@ function AccountDropdownMenu({ anchor, onLogout }: { anchor: 'top start' | 'bott
         <UserCircleIcon />
         <DropdownLabel>My account</DropdownLabel>
       </DropdownItem>
-      <DropdownDivider />
-      <DropdownItem href="#">
-        <ShieldCheckIcon />
-        <DropdownLabel>Privacy policy</DropdownLabel>
-      </DropdownItem>
-      <DropdownItem href="#">
-        <LightBulbIcon />
-        <DropdownLabel>Share feedback</DropdownLabel>
-      </DropdownItem>
+      {/*<DropdownDivider />*/}
+      {/*<DropdownItem href="#">*/}
+      {/*  <ShieldCheckIcon />*/}
+      {/*  <DropdownLabel>Privacy policy</DropdownLabel>*/}
+      {/*</DropdownItem>*/}
+      {/*<DropdownItem href="#">*/}
+      {/*  <LightBulbIcon />*/}
+      {/*  <DropdownLabel>Share feedback</DropdownLabel>*/}
+      {/*</DropdownItem>*/}
       <DropdownDivider />
       <DropdownItem href="#" onClick={onLogout}>
         <ArrowRightStartOnRectangleIcon />
@@ -130,9 +124,9 @@ export function ApplicationLayout({
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/customers" current={pathname.startsWith('/customers')}>
+              <SidebarItem href="/students" current={pathname.startsWith('/students')}>
                 <UsersIcon />
-                <SidebarLabel>Customers</SidebarLabel>
+                <SidebarLabel>Students</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/#" current={pathname.startsWith('/schedules')}>
                 <CalendarDaysIcon />
