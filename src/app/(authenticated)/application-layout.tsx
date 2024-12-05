@@ -26,11 +26,8 @@ import { getEvents } from '@/data'
 import { useAuth } from '@/hooks/auth'
 import {
   ArrowRightStartOnRectangleIcon,
-  ChevronDownIcon,
   ChevronUpIcon,
-  Cog8ToothIcon,
   LightBulbIcon,
-  PlusIcon,
   ShieldCheckIcon,
   UserCircleIcon,
 } from '@heroicons/react/16/solid'
@@ -103,28 +100,27 @@ export function ApplicationLayout({
               <DropdownButton as={SidebarItem}>
                 <Avatar src="/logo.svg" className="bg-black" />
                 <SidebarLabel>TaekwondoOn</SidebarLabel>
-                <ChevronDownIcon />
               </DropdownButton>
-              <DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">
-                <DropdownItem href="/settings">
-                  <Cog8ToothIcon />
-                  <DropdownLabel>Settings</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="#">
-                  <Avatar slot="icon" src="/teams/catalyst.svg" />
-                  <DropdownLabel>Catalyst</DropdownLabel>
-                </DropdownItem>
-                <DropdownItem href="#">
-                  <Avatar slot="icon" initials="BE" className="bg-purple-500 text-white" />
-                  <DropdownLabel>Big Events</DropdownLabel>
-                </DropdownItem>
-                <DropdownDivider />
-                <DropdownItem href="#">
-                  <PlusIcon />
-                  <DropdownLabel>New team&hellip;</DropdownLabel>
-                </DropdownItem>
-              </DropdownMenu>
+              {/*<DropdownMenu className="min-w-80 lg:min-w-64" anchor="bottom start">*/}
+              {/*  <DropdownItem href="/settings">*/}
+              {/*    <Cog8ToothIcon />*/}
+              {/*    <DropdownLabel>Settings</DropdownLabel>*/}
+              {/*  </DropdownItem>*/}
+              {/*  <DropdownDivider />*/}
+              {/*  <DropdownItem href="#">*/}
+              {/*    <Avatar slot="icon" src="/teams/catalyst.svg" />*/}
+              {/*    <DropdownLabel>Catalyst</DropdownLabel>*/}
+              {/*  </DropdownItem>*/}
+              {/*  <DropdownItem href="#">*/}
+              {/*    <Avatar slot="icon" initials="BE" className="bg-purple-500 text-white" />*/}
+              {/*    <DropdownLabel>Big Events</DropdownLabel>*/}
+              {/*  </DropdownItem>*/}
+              {/*  <DropdownDivider />*/}
+              {/*  <DropdownItem href="#">*/}
+              {/*    <PlusIcon />*/}
+              {/*    <DropdownLabel>New team&hellip;</DropdownLabel>*/}
+              {/*  </DropdownItem>*/}
+              {/*</DropdownMenu>*/}
             </Dropdown>
           </SidebarHeader>
 
@@ -138,15 +134,15 @@ export function ApplicationLayout({
                 <UsersIcon />
                 <SidebarLabel>Customers</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/orders" current={pathname.startsWith('/orders')}>
+              <SidebarItem href="/#" current={pathname.startsWith('/schedules')}>
                 <CalendarDaysIcon />
                 <SidebarLabel>Schedules</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/events" current={pathname.startsWith('/schedules')}>
+              <SidebarItem href="/#" current={pathname.startsWith('/events')}>
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/settings" current={pathname.startsWith('/settings')}>
+              <SidebarItem href="/#" current={pathname.startsWith('/settings')}>
                 <Cog6ToothIcon />
                 <SidebarLabel>Settings</SidebarLabel>
               </SidebarItem>

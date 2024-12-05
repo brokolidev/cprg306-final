@@ -1,14 +1,14 @@
 'use client'
 
-import {Button} from '@/components/button'
-import {Fieldset, Label} from '@/components/fieldset'
-import {Heading} from '@/components/heading'
-import {Input, InputGroup} from '@/components/input'
-import {Link} from '@/components/link'
-import {Switch} from '@/components/switch'
-import {Text} from '@/components/text'
+import { Button } from '@/components/button'
+import { Fieldset, Label } from '@/components/fieldset'
+import { Heading } from '@/components/heading'
+import { Input, InputGroup } from '@/components/input'
+import { Link } from '@/components/link'
+import { Switch } from '@/components/switch'
+import { Text } from '@/components/text'
 import Image from 'next/image'
-import {useAuth} from '@/hooks/auth'
+import { useAuth } from '@/hooks/auth'
 
 export default function LoginPage() {
   const { login } = useAuth({
