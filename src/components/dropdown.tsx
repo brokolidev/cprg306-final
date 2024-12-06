@@ -11,9 +11,13 @@ export function Dropdown(props: Headless.MenuProps) {
 }
 
 export function DropdownButton<T extends React.ElementType = typeof Button>({
+  // @ts-ignore
   as = Button,
   ...props
-}: { className?: string } & Omit<Headless.MenuButtonProps<T>, 'className'>) {
+}: {
+  className?: string
+} & Omit<Headless.MenuButtonProps<T>, 'className'>) {
+  // @ts-ignore
   return <Headless.MenuButton as={as} {...props} />
 }
 
@@ -168,7 +172,10 @@ export function DropdownShortcut({
   keys,
   className,
   ...props
-}: { keys: string | string[]; className?: string } & Omit<Headless.DescriptionProps<'kbd'>, 'as' | 'className'>) {
+}: {
+  keys: string | string[]
+  className?: string
+} & Omit<Headless.DescriptionProps<'kbd'>, 'as' | 'className'>) {
   return (
     <Headless.Description
       as="kbd"
