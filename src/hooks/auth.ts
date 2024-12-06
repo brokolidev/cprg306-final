@@ -52,11 +52,7 @@ export const useAuth = ({
       await csrf()
       await axios.post('/api/login', data).then((res) => {
         setToken(res.data.token)
-        setConfig({
-          headers: { Authorization: `Bearer ${res.data.token}` },
-        })
       })
-      return false
       mutate()
     } catch (error) {
       throw error
