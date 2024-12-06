@@ -136,7 +136,7 @@ export function ApplicationLayout({
                 <CalendarDaysIcon />
                 <SidebarLabel>Schedules</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/events" current={pathname.startsWith('/events')}>
+              <SidebarItem href="#" current={pathname.startsWith('/events')}>
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
               </SidebarItem>
