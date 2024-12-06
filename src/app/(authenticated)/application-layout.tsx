@@ -149,7 +149,7 @@ export function ApplicationLayout({
             <SidebarSection className="max-lg:hidden">
               <SidebarHeading>Upcoming Events</SidebarHeading>
               {events.map((event) => (
-                <SidebarItem key={event.id} href={event.url}>
+                <SidebarItem key={event.id} href="#">
                   {event.name}
                 </SidebarItem>
               ))}
@@ -173,7 +173,7 @@ export function ApplicationLayout({
             <Dropdown>
               <DropdownButton as={SidebarItem}>
                 <span className="flex min-w-0 items-center gap-3">
-                  <Avatar src="/users/erica.jpg" className="size-10" square alt="" />
+                  <Avatar src={user && user.profile_img} className="size-10" square alt="" />
                   <span className="min-w-0">
                     <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">
                       {user?.first_name && user.first_name}
