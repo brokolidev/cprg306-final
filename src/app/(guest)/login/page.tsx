@@ -16,7 +16,7 @@ export default function LoginPage() {
     redirectIfAuthenticated: '/',
   })
 
-  const submitForm = async (form: FormData) => {
+  const submitForm: any = async (form: FormData) => {
     const email = form.get('email').toString()
     const password = form.get('password').toString()
 

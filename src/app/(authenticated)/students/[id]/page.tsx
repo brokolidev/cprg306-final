@@ -6,13 +6,13 @@ import { DescriptionDetails, DescriptionList, DescriptionTerm } from '@/componen
 import { Divider } from '@/components/divider'
 import { Heading, Subheading } from '@/components/heading'
 import { Link } from '@/components/link'
-import { getStudent, IStudent } from '@/data'
+import { getStudent } from '@/data'
 import { CalendarIcon, ChevronLeftIcon } from '@heroicons/react/16/solid'
 import { notFound } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function Student({ params }: { params: Promise<{ id: string }> }) {
-  const [student, setStudent] = useState<IStudent | Object>({})
+  const [student, setStudent]: any = useState({})
 
   useEffect(() => {
     const getId = async () => {

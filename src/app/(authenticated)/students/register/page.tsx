@@ -12,7 +12,7 @@ import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
 export default function StudentRegisterPage() {
-  const formAction = async (formData) => {
+  const formAction: any = async (formData) => {
     await createStudent(formData).then((res) => {
       if (res.status === 204) {
         setIsCreated(true)
