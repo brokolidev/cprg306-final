@@ -7,12 +7,11 @@ import { Link } from '@/components/link'
 import { Pagination, PaginationGap, PaginationNext, PaginationPage, PaginationPrevious } from '@/components/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getStudents } from '@/data'
-import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function StudentsPage() {
-  const searchParams = useSearchParams()
-  const page = searchParams.get('page') ?? '1'
+export default function StudentsPage(props) {
+  const searchParams: any = React.use(props.searchParams)
+  const page = searchParams.page ? searchParams.page : '1'
 
   const [students, setStudents] = useState([])
   const [links, setLinks] = useState([])
