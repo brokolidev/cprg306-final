@@ -7,6 +7,7 @@ import { Link } from '@/components/link'
 import { Pagination, PaginationGap, PaginationNext, PaginationPage, PaginationPrevious } from '@/components/pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { getStudents } from '@/data'
+// @ts-ignore
 import { use, useEffect, useState } from 'react'
 
 export default function StudentsPage(props) {
