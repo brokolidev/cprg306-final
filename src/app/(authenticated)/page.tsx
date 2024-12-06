@@ -42,17 +42,17 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSchedules()
-      setSchedules(data)
-    }
-    fetchData()
+  async function loadSchedules(): Promise<void> {
+    const data = await getSchedules()
+    setSchedules(data)
+  }
 
+  useEffect(() => {
+    loadSchedules()
     if (user && user.first_name) {
       setFirstName(user.first_name)
     }
-  })
+  }, [user])
 
   return (
     <>
