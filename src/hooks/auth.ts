@@ -1,6 +1,6 @@
 import axios from '@/lib/axios'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import useSWR from 'swr'
 
 export const useAuth = ({
@@ -13,21 +13,15 @@ export const useAuth = ({
   const router = useRouter()
   // const params = useParams()
 
-  const [token, setToken] = useState('')
-  const [config, setConfig] = useState({
-    headers: { Authorization: `Bearer ${token}` },
-  })
-
   const {
     data: user,
     error,
     mutate,
   } = useSWR('/api/user', () =>
     axios
-      .get('/api/user', config)
+      .get('/api/user')
       .then((res) => res.data)
       .catch((error) => {
-        console.log(error)
         if (error.response.status !== 409) throw error
 
         // router.push('/verify-email')
@@ -50,10 +44,7 @@ export const useAuth = ({
   const login = async (data: { email: string; password: string }) => {
     try {
       await csrf()
-      await axios.post('/api/login', data).then((res) => {
-        setToken(res.data.token)
-      })
-      mutate()
+      await axios.post('/api/login', data).then((res) => mutate())
     } catch (error) {
       throw error
     }
@@ -99,17 +90,7 @@ export const useAuth = ({
     window.location.pathname = '/login'
   }
 
-  function loadToken() {
-    if (token) {
-      setToken(token)
-      setConfig({
-        headers: { Authorization: `Bearer ${token}` },
-      })
-    }
-  }
-
   useEffect(() => {
-    loadToken()
     if (middleware === 'guest' && redirectIfAuthenticated && user) {
       router.push(redirectIfAuthenticated)
     }
@@ -118,7 +99,7 @@ export const useAuth = ({
       router.push(redirectIfAuthenticated)
     }
     if (middleware === 'auth' && error) logout()
-  }, [user, error, middleware, redirectIfAuthenticated, logout, router, token])
+  }, [user, error])
 
   return {
     user,
