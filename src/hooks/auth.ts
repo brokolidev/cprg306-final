@@ -14,18 +14,9 @@ export const useAuth = ({
   // const params = useParams()
 
   const [token, setToken] = useState('')
-
   const [config, setConfig] = useState({
     headers: { Authorization: `Bearer ${token}` },
   })
-
-  useEffect(() => {
-    if (token) {
-      setConfig({
-        headers: { Authorization: `Bearer ${token}` },
-      })
-    }
-  }, [])
 
   const {
     data: user,
@@ -60,8 +51,12 @@ export const useAuth = ({
       await csrf()
       await axios.post('/api/login', data).then((res) => {
         setToken(res.data.token)
+        setConfig({
+          headers: { Authorization: `Bearer ${res.data.token}` },
+        })
       })
-      mutate()
+      return false
+      // mutate()
     } catch (error) {
       throw error
     }
