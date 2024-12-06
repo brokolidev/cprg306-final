@@ -25,7 +25,7 @@ function Stat({ title, value, change }: { title: string; value: string; change: 
 }
 
 export default function Home() {
-  const { user } = useAuth({ middleware: 'authenticated' })
+  const { user } = useAuth({ middleware: 'auth' })
 
   const [firstName, setFirstName] = useState('')
   const [schedules, setSchedules] = useState([])

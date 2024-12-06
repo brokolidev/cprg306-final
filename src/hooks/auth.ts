@@ -27,6 +27,7 @@ export const useAuth = ({
       .get('/api/user', config)
       .then((res) => res.data)
       .catch((error) => {
+        console.log(error)
         if (error.response.status !== 409) throw error
 
         // router.push('/verify-email')
@@ -102,7 +103,17 @@ export const useAuth = ({
     window.location.pathname = '/login'
   }
 
+  function loadToken() {
+    if (token) {
+      setToken(token)
+      setConfig({
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    }
+  }
+
   useEffect(() => {
+    loadToken()
     if (middleware === 'guest' && redirectIfAuthenticated && user) {
       router.push(redirectIfAuthenticated)
     }
@@ -111,7 +122,7 @@ export const useAuth = ({
       router.push(redirectIfAuthenticated)
     }
     if (middleware === 'auth' && error) logout()
-  }, [user, error, middleware, redirectIfAuthenticated, logout, router])
+  }, [user, error, middleware, redirectIfAuthenticated, logout, router, token])
 
   return {
     user,

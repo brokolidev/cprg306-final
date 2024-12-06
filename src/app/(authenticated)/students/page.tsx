@@ -17,13 +17,14 @@ export default function StudentsPage(props) {
   const [students, setStudents] = useState([])
   const [links, setLinks] = useState([])
 
+  async function loadStudents(page) {
+    const data = await getStudents(page)
+    setStudents(data.data)
+    setLinks(data.meta.links)
+  }
+
   useEffect(() => {
-    const fetchData = async (page: string) => {
-      const data = await getStudents(page)
-      setStudents(data.data)
-      setLinks(data.meta.links)
-    }
-    fetchData(page)
+    loadStudents(page)
   }, [page])
 
   const conditionalStyle = (expiredAt) => {
