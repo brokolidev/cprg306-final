@@ -10,7 +10,7 @@ import { getSchedules } from '@/data'
 import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 
-export function Stat({ title, value, change }: { title: string; value: string; change: string }) {
+function Stat({ title, value, change }: { title: string; value: string; change: string }) {
   return (
     <div>
       <Divider />
