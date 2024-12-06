@@ -56,7 +56,7 @@ export const useAuth = ({
         })
       })
       return false
-      // mutate()
+      mutate()
     } catch (error) {
       throw error
     }
