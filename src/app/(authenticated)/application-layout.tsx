@@ -80,7 +80,7 @@ export function ApplicationLayout({
           <NavbarSection>
             <Dropdown>
               <DropdownButton as={NavbarItem}>
-                <Avatar src="/users/erica.jpg" square />
+                <Avatar src={user && user.profile_img} square />
               </DropdownButton>
               <AccountDropdownMenu anchor="bottom end" onLogout={logout} />
             </Dropdown>
@@ -128,15 +128,15 @@ export function ApplicationLayout({
                 <UsersIcon />
                 <SidebarLabel>Students</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="#" current={pathname.startsWith('/instructors')}>
+              <SidebarItem href="#">
                 <UserCircleIcon />
                 <SidebarLabel>Instructors</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="#" current={pathname.startsWith('/schedules')}>
+              <SidebarItem href="#">
                 <CalendarDaysIcon />
                 <SidebarLabel>Schedules</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="#" current={pathname.startsWith('/events')}>
+              <SidebarItem href="#">
                 <Square2StackIcon />
                 <SidebarLabel>Events</SidebarLabel>
               </SidebarItem>
