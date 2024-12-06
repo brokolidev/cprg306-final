@@ -1,6 +1,6 @@
 import axios from '@/lib/axios'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 export const useAuth = ({
@@ -13,17 +13,28 @@ export const useAuth = ({
   const router = useRouter()
   // const params = useParams()
 
+  const [token, setToken] = useState('')
+
+  const [config, setConfig] = useState({
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
+  useEffect(() => {
+    if (token) {
+      setConfig({
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    }
+  }, [])
+
   const {
     data: user,
     error,
     mutate,
   } = useSWR('/api/user', () =>
     axios
-      .get('/api/user')
-      .then((res) => {
-        console.log(res)
-        return res.data
-      })
+      .get('/api/user', config)
+      .then((res) => res.data)
       .catch((error) => {
         if (error.response.status !== 409) throw error
 
@@ -47,7 +58,9 @@ export const useAuth = ({
   const login = async (data: { email: string; password: string }) => {
     try {
       await csrf()
-      await axios.post('/api/login', data)
+      await axios.post('/api/login', data).then((res) => {
+        setToken(res.data.token)
+      })
       mutate()
     } catch (error) {
       throw error
