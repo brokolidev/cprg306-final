@@ -24,12 +24,11 @@ function Stat({ title, value, change }: { title: string; value: string; change: 
   )
 }
 
-const schedules = await getSchedules()
-
 export default function Home() {
   const { user } = useAuth({ middleware: 'auth' })
 
   const [firstName, setFirstName] = useState('')
+  const [schedules, setSchedules] = useState([])
 
   const getGreeting = () => {
     const currentHour = new Date().getHours()
@@ -44,6 +43,12 @@ export default function Home() {
   }
 
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSchedules()
+      setSchedules(data)
+    }
+    fetchData()
+
     if (user && user.first_name) {
       setFirstName(user.first_name)
     }
